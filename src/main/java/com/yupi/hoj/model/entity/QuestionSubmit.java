@@ -3,19 +3,18 @@ package com.yupi.hoj.model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 帖子
+ * 题目提交
+ * @TableName question_submit
  */
-@TableName(value = "post")
+@TableName(value ="question_submit")
 @Data
-public class Post extends Question implements Serializable {
-
+public class QuestionSubmit implements Serializable {
     /**
      * id
      */
@@ -23,29 +22,29 @@ public class Post extends Question implements Serializable {
     private Long id;
 
     /**
-     * 标题
+     * 编程语言
      */
-    private String title;
+    private String language;
 
     /**
-     * 内容
+     * 用户代码
      */
-    private String content;
+    private String code;
 
     /**
-     * 标签列表 json
+     * 判题信息（json 对象）
      */
-    private String tags;
+    private String judgeInfo;
 
     /**
-     * 点赞数
+     * 判题状态（0 - 待判题、1 - 判题中、2 - 成功、3 - 失败）
      */
-    private Integer thumbNum;
+    private Integer status;
 
     /**
-     * 收藏数
+     * 题目 id
      */
-    private Integer favourNum;
+    private Long questionId;
 
     /**
      * 创建用户 id
@@ -65,7 +64,6 @@ public class Post extends Question implements Serializable {
     /**
      * 是否删除
      */
-    @TableLogic
     private Integer isDelete;
 
     @TableField(exist = false)
