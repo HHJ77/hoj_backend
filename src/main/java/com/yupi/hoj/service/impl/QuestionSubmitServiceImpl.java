@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yupi.hoj.common.ErrorCode;
 import com.yupi.hoj.constant.CommonConstant;
 import com.yupi.hoj.exception.BusinessException;
+import com.yupi.hoj.judge.JudgeService;
 import com.yupi.hoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 
 import com.yupi.hoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
@@ -22,10 +23,12 @@ import com.yupi.hoj.utils.SqlUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -39,6 +42,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private QuestionService questionService;
+
+    @Resource
+    @Lazy
+    private JudgeService judgeService;
 
     /**
      * 提交题目
@@ -76,6 +83,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
             throw new BusinessException(ErrorCode.SYSTEM_ERROR,"提交失败");
         }
 
+        //TODO 调用判题服务
+
+        //异步判题
+        CompletableFuture.runAsync(() -> {
+            judgeService.judge(questionSubmit.getId());
+        });
         return  questionSubmit.getId();
     }
 
