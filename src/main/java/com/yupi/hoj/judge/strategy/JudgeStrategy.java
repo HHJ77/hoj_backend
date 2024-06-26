@@ -1,6 +1,6 @@
 package com.yupi.hoj.judge.strategy;
 
-import com.yupi.hoj.model.dto.questionsubmit.JudgeInfo;
+import com.yupi.hoj.judge.codesanbox.model.JudgeInfo;
 
 /**
  * 判题策略

@@ -68,9 +68,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (question == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR,"题目不存在");
         }
-        // 是否已提交题目
+        //收集提交信息
+        //判断是否登录
         long userId = loginUser.getId();
-        // 每个用户串行提交题目
+        //保存提交信息
         QuestionSubmit questionSubmit = new QuestionSubmit();
         questionSubmit.setUserId(userId);
         questionSubmit.setQuestionId(questionId);
@@ -82,9 +83,6 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR,"提交失败");
         }
-
-        //TODO 调用判题服务
-
         //异步判题
         CompletableFuture.runAsync(() -> {
             judgeService.judge(questionSubmit.getId());

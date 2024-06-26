@@ -2,7 +2,7 @@ package com.yupi.hoj.judge.strategy;
 
 import cn.hutool.json.JSONUtil;
 import com.yupi.hoj.model.dto.question.JudgeCase;
-import com.yupi.hoj.model.dto.questionsubmit.JudgeInfo;
+import com.yupi.hoj.judge.codesanbox.model.JudgeInfo;
 import com.yupi.hoj.model.entity.Question;
 import com.yupi.hoj.model.enums.JudgeInfoMessageEnum;
 

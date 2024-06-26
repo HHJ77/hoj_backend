@@ -1,7 +1,6 @@
 package com.yupi.hoj.judge;
 
 import com.yupi.hoj.model.entity.QuestionSubmit;
-import com.yupi.hoj.model.vo.QuestionSubmitVO;
 /**
  * 判题服务
  */

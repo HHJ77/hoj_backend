@@ -3,7 +3,7 @@ package com.yupi.hoj.judge.codesanbox.impl;
 import com.yupi.hoj.judge.codesanbox.CodeSandBox;
 import com.yupi.hoj.judge.codesanbox.model.ExecuteCodeRequest;
 import com.yupi.hoj.judge.codesanbox.model.ExecuteCodeResponse;
-import com.yupi.hoj.model.dto.questionsubmit.JudgeInfo;
+import com.yupi.hoj.judge.codesanbox.model.JudgeInfo;
 import com.yupi.hoj.model.enums.JudgeInfoMessageEnum;
 import com.yupi.hoj.model.enums.QuestionSubmitStatusEnum;
 

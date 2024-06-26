@@ -8,15 +8,12 @@ import com.yupi.hoj.judge.codesanbox.CodeSandBoxFactory;
 import com.yupi.hoj.judge.codesanbox.CodeSandBoxProxy;
 import com.yupi.hoj.judge.codesanbox.model.ExecuteCodeRequest;
 import com.yupi.hoj.judge.codesanbox.model.ExecuteCodeResponse;
-import com.yupi.hoj.judge.strategy.DefaultJudgeStrategy;
 import com.yupi.hoj.judge.strategy.JudgeContext;
 import com.yupi.hoj.model.dto.question.JudgeCase;
-import com.yupi.hoj.model.dto.questionsubmit.JudgeInfo;
+import com.yupi.hoj.judge.codesanbox.model.JudgeInfo;
 import com.yupi.hoj.model.entity.Question;
 import com.yupi.hoj.model.entity.QuestionSubmit;
-import com.yupi.hoj.model.enums.JudgeInfoMessageEnum;
 import com.yupi.hoj.model.enums.QuestionSubmitStatusEnum;
-import com.yupi.hoj.model.vo.QuestionSubmitVO;
 import com.yupi.hoj.service.QuestionService;
 import com.yupi.hoj.service.QuestionSubmitService;
 import org.springframework.beans.factory.annotation.Value;
@@ -95,7 +92,7 @@ public class JudgeServiceImpl implements JudgeService {
                 .build();
         ExecuteCodeResponse executeCodeResponse = codeSandBox.executeCode(executeCodeRequest);
 
-        //5.返回结果
+        //收集判题信息
         JudgeContext judgeContext = new JudgeContext();
         judgeContext.setInputList(inputList);
         judgeContext.setOutputList(executeCodeResponse.getOutputList());
@@ -104,6 +101,7 @@ public class JudgeServiceImpl implements JudgeService {
         judgeContext.setJudgeCases(judgeCases);
         judgeContext.setQuestionSubmit(questionSubmit);
 
+        //对比答案
         JudgeInfo judgeInfo = judgeManger.doJudge(judgeContext);
         //更新状态
         questionSubmit1 = new QuestionSubmit();
@@ -116,7 +114,6 @@ public class JudgeServiceImpl implements JudgeService {
         }
 
         QuestionSubmit byId = questionSubmitService.getById(questionSubmitId);
-
 
         return byId;
     }
